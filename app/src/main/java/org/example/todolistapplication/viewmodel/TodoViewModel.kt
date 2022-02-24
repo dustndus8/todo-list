@@ -3,14 +3,20 @@ package org.example.todolistapplication.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import org.example.todolistapplication.model.TodoModel
 import org.example.todolistapplication.repository.TodoRepository
+import org.example.todolistapplication.utils.SingleLiveEvent
 
 class TodoViewModel(application: Application) : AndroidViewModel(application) {
     private val mTodoRepository: TodoRepository
     private var mTodoItems: LiveData<List<TodoModel>>
     private var mTodoItemsMiddle: LiveData<List<TodoModel>>
     private var mTodoItemsAfter: LiveData<List<TodoModel>>
+
+    val text = MutableLiveData("")
+    val addBtnClickEvent = SingleLiveEvent<Any>()
 
     init {
         mTodoRepository = TodoRepository(application)
@@ -45,6 +51,15 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateTodoMiddleToAfter(todoModelID: Long?) {
         mTodoRepository.updateTodoMiddleToAfter(todoModelID)
+    }
+
+    fun onClickAddButton() {
+        System.out.println("onClickAddButton")
+        addBtnClickEvent.call()
+    }
+
+    fun deleteText() {
+        text.value = null
     }
 
 }

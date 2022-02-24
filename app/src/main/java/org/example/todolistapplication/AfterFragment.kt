@@ -5,12 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.EditText
-import android.widget.ImageButton
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.AppCompatImageButton
-import androidx.fragment.app.Fragment
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import org.example.todolistapplication.R
 import org.example.todolistapplication.adapter.TodoAdapter
 import org.example.todolistapplication.base.BaseFragment
+import org.example.todolistapplication.databinding.FragmentAfterBinding
 import org.example.todolistapplication.model.TodoModel
 import org.example.todolistapplication.viewmodel.TodoViewModel
 
 class AfterFragment : BaseFragment() {
-    //override val layoutResourceId = R.layout.fragment_after
+    private lateinit var binding: FragmentAfterBinding
     private lateinit var mTodoViewModel: TodoViewModel
     private lateinit var mTodoAdapter: TodoAdapter
 
@@ -31,21 +27,18 @@ class AfterFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var root = inflater.inflate(R.layout.fragment_after, container, false)
-        var recyclerView = root.findViewById<RecyclerView>(R.id.recyclerview_after)
-        initRecyclerView(recyclerView)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_after, container, false)
+        initRecyclerView(binding.recyclerviewAfter)
         initViewModel()
 
         // 체크박스 클릭 시 데이터 삭제
         mTodoAdapter.setOnItemClickListener(object : TodoAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: TodoModel, pos: Int) {
                 mTodoViewModel.deleteTodo(data)
-
                 Log.d("BUTTON", "deletebox")
             }
         })
-
-        return root
+        return binding.root
     }
 
     private fun initViewModel() {
