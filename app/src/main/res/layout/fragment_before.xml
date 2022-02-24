@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View
+        android:id="@+id/borderView"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview_before"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_before"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/borderView"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    <EditText
+        android:id="@+id/todo_text_before"
+        app:layout_constraintTop_toBottomOf="@id/recyclerview_before"
+        android:background="@drawable/edit_text_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp"/>
+
+    <ImageButton
+        android:id="@+id/imageButton_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/todo_text_before"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/todo_text_before"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
